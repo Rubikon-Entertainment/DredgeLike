@@ -1,0 +1,3 @@
+The "Ambient (Trader, Mechanic, Tourist).mp3" file should be combined with character themes and looped.
+
+The "Harbor Theme (Trader).mp3", "Mechanic Theme.mp3", and "Tourist Theme.mp3" files should be played once at the start of interactions with the respective characters.

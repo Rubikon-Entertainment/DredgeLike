@@ -1,0 +1,4 @@
+The "Boat Engine.mp3" file should be combined with "Water Sound.mp3"
+
+The "Boat Engine.mp3" and "Water Sound.mp3" files should be looped while the boat is in the ocean.
+

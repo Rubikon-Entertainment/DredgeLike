@@ -18,8 +18,8 @@ public class InventoryController : MonoBehaviour
         ScrapsNow = 0;
         Coins = 0; 
 
-        arrayFish.push( fish = new Fish("NewFish", _, 10, 5, 35, _));   
-        Debug.Log(arrayFish[0]); 
+        // arrayFish.push( fish = new Fish("NewFish", _, 10, 5, 35, _));   
+        // Debug.Log(arrayFish[0]); 
     }
 
    public int GetWoodNow()
