@@ -55,16 +55,52 @@ public class TappingController : MonoBehaviour
 
         foreach (Circle circle in activeCircles)
         {
-            Vector3 spawnPosition = new Vector3(
-                UnityEngine.Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
-                UnityEngine.Random.Range(-spawnAreaHeight / 2, spawnAreaHeight / 2),
-                0);
+            Vector3 spawnPosition;
+            bool positionFound = false;
 
-            circle.transform.position = spawnPosition;
-            circle.gameObject.SetActive(true);
+            // Пытаемся найти подходящую позицию
+            for (int attempts = 0; attempts < 100; attempts++)
+            {
+                spawnPosition = new Vector3(
+                    UnityEngine.Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
+                    0,
+                    UnityEngine.Random.Range(-spawnAreaHeight / 2, spawnAreaHeight / 2));
+
+                if (IsPositionValid(spawnPosition, circle.transform.localScale.x / 2)) 
+                {
+                    circle.transform.position = spawnPosition;
+                    positionFound = true;
+                    break; 
+                }
+            }
+
+            if (positionFound)
+            {
+                circle.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("Не удалось найти подходящую позицию для круга после 100 попыток.");
+            }
         }
-        
     }
+
+    private bool IsPositionValid(Vector3 position, float radius)
+    {
+        foreach (Circle circle in activeCircles)
+        {
+            if (circle.gameObject.activeSelf)
+            {
+
+                if (Vector3.Distance(position, circle.transform.position) < radius * 2)
+                {
+                    return false; 
+                }
+            }
+        }
+        return true;
+    }
+
 
     public bool IsFinished()
     {
