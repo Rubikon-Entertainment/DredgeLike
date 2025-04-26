@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 785d2edbea4b76748a9129fa2deededa
 =======
 guid: 90db6adbc8090a248b2fa0abbe3fc291
 >>>>>>> cd5f8cf (UI part partly)
+=======
+guid: 3ec1227f0ea08394ba0e2d4ad1f8a223
+>>>>>>> e4d56b5 (lexa commit)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
