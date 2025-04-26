@@ -970,7 +970,7 @@ RectTransform:
   m_Father: {fileID: 57223762}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1212,7 +1212,7 @@ RectTransform:
   m_Father: {fileID: 714834319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4687,6 +4687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 5327669489037184460, guid: aea9eb250ac419f408d65f9e7107856a, type: 3}
   arrowsPrefab: {fileID: 8260065493739786064, guid: ceee6d9eceecd3d49a74d91138ee7515, type: 3}
+  currentArrows: {fileID: 0}
   successTime: 2
 --- !u!114 &1127143861
 MonoBehaviour:
@@ -4701,11 +4702,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circlePrefab: {fileID: 6576215308814750029, guid: 8e0a33bd1cd075543b3de0359c9674d8, type: 3}
+  fishPrefab: {fileID: 5327669489037184460, guid: aea9eb250ac419f408d65f9e7107856a, type: 3}
   tappedTargets: 0
   targets: 4
   spawnAreaWidth: 5
   spawnAreaHeight: 5
   timeLimit: 5
+  spawnAreaZMin: -5
+  spawnAreaZMax: -2.5
 --- !u!114 &1127143862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5841,7 +5845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1497479036
 Transform:
   m_ObjectHideFlags: 0

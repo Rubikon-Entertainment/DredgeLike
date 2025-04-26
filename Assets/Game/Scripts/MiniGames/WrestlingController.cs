@@ -42,18 +42,12 @@ public class WrestlingController : MonoBehaviour
 
     private void Update()
     {
-        if (ProgressController.instance.IsFinished())
-        {
-            StopGame();
-            return;
-        }
-
         CheckArrowDirection();
     }
 
     private void CheckArrowDirection()
     {
-        if (currentFish.isWaiting)
+        if (currentFish && currentFish.isWaiting)
         {
             float arrowPosition = currentArrows.transform.position.x;
             float fishPosition = currentFish.transform.position.x;
@@ -105,7 +99,7 @@ public class WrestlingController : MonoBehaviour
         playerOnSameSide = value;
     }
 
-    private void StopGame()
+    public void StopGame()
     {
         Debug.Log("Game Over! You've reached the target value.");
         if (currentFish != null)
