@@ -364,6 +364,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 955089483}
   - {fileID: 1900883822}
   - {fileID: 875060013}
   - {fileID: 1171176832}
@@ -2788,7 +2789,6 @@ GameObject:
   - component: {fileID: 634872387}
   - component: {fileID: 634872386}
   - component: {fileID: 634872385}
-  - component: {fileID: 634872388}
   m_Layer: 5
   m_Name: InteractButton
   m_TagString: Untagged
@@ -2860,7 +2860,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 634872388}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BaseInteractable, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -2910,23 +2910,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634872383}
   m_CullTransparentMesh: 1
---- !u!114 &634872388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634872383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a96ddff488a47d241a2ee95931177bc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonText: {fileID: 0}
-  defaultText: Interact
-  unavailableText: No Interaction
-  activeColor: {r: 1, g: 1, b: 1, a: 1}
-  inactiveColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.5}
 --- !u!1 &711931579
 GameObject:
   m_ObjectHideFlags: 0
@@ -3400,6 +3383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0347b4a28034e43ac5438ffb78317d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixedJoystick: {fileID: 1330213383}
   speed: 50
   rotationSpeed: 200
   drag: 2
@@ -3438,6 +3422,51 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!1 &955089481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955089483}
+  - component: {fileID: 955089484}
+  m_Layer: 0
+  m_Name: ButtonPressCatch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955089483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955089481}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 163.06842, y: -140.45789, z: 37.789703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 16835123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &955089484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955089481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dd562a7e6e87248a8a3f9943b37f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionButton: {fileID: 634872385}
 --- !u!1 &960822928
 GameObject:
   m_ObjectHideFlags: 0
@@ -5236,6 +5265,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223239847}
   m_CullTransparentMesh: 1
+--- !u!114 &1330213383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
+  m_PrefabInstance: {fileID: 1171176831}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1355236245
 GameObject:
   m_ObjectHideFlags: 0
@@ -6455,7 +6495,7 @@ GameObject:
   - component: {fileID: 1639494583}
   m_Layer: 0
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
