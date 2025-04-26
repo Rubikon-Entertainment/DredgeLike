@@ -42,7 +42,6 @@ public class TappingController : MonoBehaviour
     {
         tappedTargets++;
         circle.gameObject.SetActive(false);
-        activeCircles.Remove(circle);
 
         if (IsFinished())
         {
@@ -54,24 +53,17 @@ public class TappingController : MonoBehaviour
     {
         tappedTargets = 0;
 
-        if (activeCircles.Count > 0)
+        foreach (Circle circle in activeCircles)
         {
-            foreach (Circle circle in activeCircles)
-            {
-                Vector3 spawnPosition = new Vector3(
-                    UnityEngine.Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
-                    UnityEngine.Random.Range(-spawnAreaHeight / 2, spawnAreaHeight / 2),
-                    0);
+            Vector3 spawnPosition = new Vector3(
+                UnityEngine.Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
+                UnityEngine.Random.Range(-spawnAreaHeight / 2, spawnAreaHeight / 2),
+                0);
 
-                circle.transform.position = spawnPosition;
-                circle.gameObject.SetActive(true);
-            }
+            circle.transform.position = spawnPosition;
+            circle.gameObject.SetActive(true);
         }
-        else
-        {
-            InitializeCircles();
-            GenerateNewPositions();
-        }
+        
     }
 
     public bool IsFinished()
