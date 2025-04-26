@@ -152,13 +152,37 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(SmoothMoveToPosition(startPosition, targetPosition, harborTarget.rotation * Quaternion.Euler(0, -90, 0), moveToHarborDuration));
     }
     
+    public void SweemToStock(Transform stockTarget)
+    {
+        if (stockTarget == null)
+        {
+            Debug.LogError("Stock target is null!");
+            return;
+        }
+
+        // Lock controls during stock interaction
+        LockControls();
+
+        Vector3 targetPosition = stockTarget.position;
+
+        // Calculate the starting position to the left of the stock
+        Vector3 startPosition = transform.position;
+        
+        // Maintain the y position
+        startPosition.y = transform.position.y;
+        targetPosition.y = transform.position.y;
+        
+        // Start the smooth movement coroutine
+        StartCoroutine(SmoothMoveToPosition(startPosition, targetPosition, stockTarget.rotation * Quaternion.Euler(0, -90, 0), moveToHarborDuration));
+    }
+    
     private IEnumerator SmoothMoveToPosition(Vector3 startPos, Vector3 endPos, Quaternion targetRotation, float duration)
     {
         // Teleport to the start position
         transform.position = startPos;
         
         float time = 0;
-        Quaternion startRotation = targetRotation;
+        Quaternion startRotation = transform.rotation;
         
         while (time < duration)
         {

@@ -16,4 +16,16 @@ public class StockObject : BaseInteractable
             Debug.LogWarning("StockObject has no assigned stock.");
         }
     }
+    
+    protected override void HandleInteraction(GameObject interactor)
+    {
+        if (!hasInteracted)
+        {
+            DisplayInfo();
+            Debug.Log($"Interacted with {gameObject.name}");
+            hasInteracted = true;
+            CameraController.Instance.ChangeTargetWithMode(gameObject.transform, "Stock");
+            PlayerController.Instance.SweemToStock(gameObject.transform);
+        }
+    }
 }
