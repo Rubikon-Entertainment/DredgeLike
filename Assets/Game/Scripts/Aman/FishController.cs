@@ -1,18 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
-public class Fish : MonoBehaviour
+public class FishController : MonoBehaviour
 {
     public float speed = 5f;
-    public float moveRange = 3f;
+    public float moveRange = 5f;
 
     private Vector3 startPosition;
     private bool movingRight = true;
     public bool isWaiting = false;
     public float waitTime;
     public float minWaitTime, maxWaitTime;
-
-
 
     private void Start()
     {
@@ -22,6 +20,7 @@ public class Fish : MonoBehaviour
     private void Update()
     {
         MoveFish();
+        UpdateZPosition();
     }
 
     public int GetDirection()
@@ -64,11 +63,21 @@ public class Fish : MonoBehaviour
         }
     }
 
+    private void UpdateZPosition()
+    {
+        int currentValue = ProgressController.instance.currentValue;
+
+        float zPosition = Mathf.Lerp(4f, -2f, (float)currentValue / ProgressController.instance.targetValue);
+        transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
+    }
+
     private IEnumerator WaitBeforeChangingDirection()
     {
         isWaiting = true;
         waitTime = Random.Range(minWaitTime, maxWaitTime);
         yield return new WaitForSeconds(waitTime);
         isWaiting = false;
+
+        WrestlingController.instance.SetPlayerOnSameSide(!movingRight);
     }
 }

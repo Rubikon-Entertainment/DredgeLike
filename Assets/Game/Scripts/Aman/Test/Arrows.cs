@@ -4,7 +4,7 @@ public class Arrows : MonoBehaviour
 {
     public static Arrows instance { get; private set; }
     private Vector3 startPosition;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 8f;
     public float moveRange = 3f;
     
 

@@ -31,7 +31,8 @@ public class EventController : MonoBehaviour
     {
         if (isFishing)
         {
-            TappingController.instance.StartGame();
+            //TappingController.instance.StartGame();
+            WrestlingController.instance.StartGame();
 
             //int randomGame = Random.Range(0, 3);
             //switch (randomGame)
