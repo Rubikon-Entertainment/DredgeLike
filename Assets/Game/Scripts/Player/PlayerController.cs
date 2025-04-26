@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SweemSpeedLevelUp(){
+    public void SweemSpeedLevelUp(){
         speed += speedLevelUp;
         if (speed > maxSpeed)
         {
