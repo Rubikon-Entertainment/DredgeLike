@@ -8,8 +8,8 @@ public class Fish : MonoBehaviour
 
     private Vector3 startPosition;
     private bool movingRight = true;
-    private bool isWaiting = false;
-    private float waitTime;
+    public bool isWaiting = false;
+    public float waitTime;
     public float minWaitTime, maxWaitTime;
 
 
@@ -22,6 +22,11 @@ public class Fish : MonoBehaviour
     private void Update()
     {
         MoveFish();
+    }
+
+    public int GetDirection()
+    {
+        return movingRight ? 1 : -1;
     }
 
     private void MoveFish()

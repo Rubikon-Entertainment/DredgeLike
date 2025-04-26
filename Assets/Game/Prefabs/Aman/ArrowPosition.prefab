@@ -121,4 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a49b2fc9c1cbd459377af666c7a4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 10
   wrestlingController: {fileID: 0}

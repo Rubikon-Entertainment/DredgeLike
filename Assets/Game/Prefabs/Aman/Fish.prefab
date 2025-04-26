@@ -125,5 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   moveRange: 3
-  minWaitTime: 0.5
-  maxWaitTime: 3
+  isWaiting: 0
+  waitTime: 0
+  minWaitTime: 2
+  maxWaitTime: 4
