@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
 
+    public FixedJoystick fixedJoystick;
+
     [Header("Movement Settings")]
     public float speed = 5f;
     public float rotationSpeed = 100f;
@@ -62,8 +64,8 @@ public class PlayerController : MonoBehaviour
         // Only process inputs if controls aren't locked
         if (!controlsLocked)
         {
-            rotationInput = Input.GetAxisRaw("Horizontal"); 
-            forwardInput = Input.GetAxisRaw("Vertical");
+            rotationInput = fixedJoystick.Horizontal; // Input.GetAxisRaw("Horizontal"); 
+            forwardInput =  fixedJoystick.Vertical; //Input.GetAxisRaw("Vertical");
         }
         else
         {
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
         {
             float t = time / duration;
             transform.position = Vector3.Lerp(startPos, endPos, t);
+            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
             
             time += Time.deltaTime;
             yield return null;

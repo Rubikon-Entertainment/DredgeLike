@@ -367,9 +367,9 @@ RectTransform:
   - {fileID: 1900883822}
   - {fileID: 875060013}
   - {fileID: 1171176832}
-  - {fileID: 634872384}
   - {fileID: 1813801639}
   - {fileID: 1097350076}
+  - {fileID: 634872384}
   m_Father: {fileID: 207044143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2788,6 +2788,7 @@ GameObject:
   - component: {fileID: 634872387}
   - component: {fileID: 634872386}
   - component: {fileID: 634872385}
+  - component: {fileID: 634872388}
   m_Layer: 5
   m_Name: InteractButton
   m_TagString: Untagged
@@ -2802,7 +2803,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634872383}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2858,7 +2859,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 634872386}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 634872388}
+        m_TargetAssemblyTypeName: BaseInteractable, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &634872386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2897,6 +2910,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634872383}
   m_CullTransparentMesh: 1
+--- !u!114 &634872388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634872383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96ddff488a47d241a2ee95931177bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonText: {fileID: 0}
+  defaultText: Interact
+  unavailableText: No Interaction
+  activeColor: {r: 1, g: 1, b: 1, a: 1}
+  inactiveColor: {r: 0.7, g: 0.7, b: 0.7, a: 0.5}
 --- !u!1 &711931579
 GameObject:
   m_ObjectHideFlags: 0
@@ -6356,7 +6386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionTarget: {fileID: 1639494580}
-  interactionKey: 101
   harborTarget: {fileID: 1618399393}
   harborName: island 1
   harborDescription: 'Lexin dom '
@@ -8635,8 +8664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionTarget: {fileID: 1639494580}
-  interactionKey: 101
-  harborTarget: {fileID: 0}
+  harborTarget: {fileID: 2076782747}
   harborName: Island
   harborDescription: Lexina da4a
 --- !u!1 &2090791148
@@ -8861,8 +8889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionTarget: {fileID: 1639494580}
-  interactionKey: 101
-  harborTarget: {fileID: 0}
+  harborTarget: {fileID: 2094575764}
   harborName: Island 3
   harborDescription: Lexa ewe ne doplyl
 --- !u!1 &2100795710

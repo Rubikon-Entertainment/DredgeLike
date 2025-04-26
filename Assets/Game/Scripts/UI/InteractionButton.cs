@@ -9,10 +9,17 @@ public class InteractionButton : MonoBehaviour
     public Text buttonText;
     [Tooltip("Default text to show on the button")]
     public string defaultText = "Interact";
+    [Tooltip("Text to show when no interactions are available")]
+    public string unavailableText = "No Interaction";
+    [Tooltip("Button color when interactions are available")]
+    public Color activeColor = Color.white;
+    [Tooltip("Button color when no interactions are available")]
+    public Color inactiveColor = new Color(0.7f, 0.7f, 0.7f, 0.5f);
 
     private Button button;
     private GameObject player;
     private HashSet<BaseInteractable> availableInteractables = new HashSet<BaseInteractable>();
+    private Image buttonImage;
     
     void OnEnable()
     {
@@ -27,13 +34,14 @@ public class InteractionButton : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
+        buttonImage = GetComponent<Image>();
         button.onClick.AddListener(HandleInteraction);
         
         // Assuming the player has a "Player" tag
         player = GameObject.FindGameObjectWithTag("Player");
         
-        // Hide button by default
-        gameObject.SetActive(false);
+        // Always show button, but update its interactability state
+        UpdateButtonState();
         
         if (buttonText != null)
         {
@@ -43,8 +51,8 @@ public class InteractionButton : MonoBehaviour
     
     void Update()
     {
-        // Update button visibility based on available interactions
-        UpdateButtonVisibility();
+        // Update button state based on available interactions
+        UpdateButtonState();
     }
     
     void HandleInteractableStatusChanged(BaseInteractable interactable, bool isAvailable)
@@ -60,14 +68,28 @@ public class InteractionButton : MonoBehaviour
                 availableInteractables.Remove(interactable);
             }
             
-            UpdateButtonVisibility();
+            UpdateButtonState();
         }
     }
     
-    void UpdateButtonVisibility()
+    void UpdateButtonState()
     {
-        // Only show the button if there are available interactables
-        gameObject.SetActive(availableInteractables.Count > 0);
+        bool hasInteractions = availableInteractables.Count > 0;
+        
+        // Always show the button, but update its interactability
+        button.interactable = hasInteractions;
+        
+        // Update button text
+        if (buttonText != null)
+        {
+            buttonText.text = hasInteractions ? defaultText : unavailableText;
+        }
+        
+        // Update button color
+        if (buttonImage != null)
+        {
+            buttonImage.color = hasInteractions ? activeColor : inactiveColor;
+        }
     }
     
     void HandleInteraction()
