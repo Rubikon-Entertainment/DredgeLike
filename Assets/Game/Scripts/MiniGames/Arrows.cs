@@ -3,15 +3,15 @@ using UnityEngine;
 public class Arrows : MonoBehaviour
 {
     public static Arrows instance { get; private set; }
-    private Vector3 startPosition;
-    public float moveSpeed = 8f;
-    public float moveRange = 3f;
-    
+    public float moveSpeed = 12f;
+    public float moveRange = 1.5f;
+
+    public float leftBoundary = -2.5f;
+    public float rightBoundary = 2.5f;
 
     private void Awake()
     {
         Singleton();
-        startPosition = transform.position;
     }
 
     private void Singleton()
@@ -23,6 +23,7 @@ public class Arrows : MonoBehaviour
         }
         instance = this;
     }
+
     void Update()
     {
         MovePlayer();
@@ -33,12 +34,18 @@ public class Arrows : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 movement = new Vector3(horizontalInput, 0, 0) * moveSpeed * Time.deltaTime;
 
-        if (transform.position.x + movement.x < startPosition.x - moveRange ||
-            transform.position.x + movement.x > startPosition.x + moveRange)
+        float newPositionX = transform.position.x + movement.x;
+
+        if (newPositionX < leftBoundary)
         {
-            return;
+            newPositionX = leftBoundary;
+        }
+        else if (newPositionX > rightBoundary)
+        {
+            newPositionX = rightBoundary;
         }
 
-        transform.Translate(movement);
+        transform.position = new Vector3(newPositionX, transform.position.y, transform.position.z);
     }
+
 }

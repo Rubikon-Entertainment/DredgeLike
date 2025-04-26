@@ -5,15 +5,19 @@ public class TappingController : MonoBehaviour
 {
     public static TappingController instance { get; private set; }
     public Circle circlePrefab;
+    public FishController fishPrefab;
     public int tappedTargets;
     public int targets = 4;
     public float spawnAreaWidth = 5f;
     public float spawnAreaHeight = 5f;
-    public float timeLimit = 5f; 
+    public float timeLimit = 5f;
+    public float spawnAreaZMin = -5f;
+    public float spawnAreaZMax = -2.5f;
 
     private float timer; 
     private bool isTimerRunning = false;
     private bool isGameActive = false;
+    private FishController currentFish;
 
     private List<Circle> activeCircles = new List<Circle>();
 
@@ -37,6 +41,7 @@ public class TappingController : MonoBehaviour
     {
         isGameActive = true;
         InitializeCircles();
+        currentFish = Instantiate(fishPrefab);
         GenerateNewPositions();
     }
 
@@ -48,6 +53,7 @@ public class TappingController : MonoBehaviour
         {
             circle.gameObject.SetActive(false);
         }
+        currentFish.gameObject.SetActive(false);
         Debug.Log("Game stopped!");
     }
 
@@ -114,7 +120,7 @@ public class TappingController : MonoBehaviour
                 spawnPosition = new Vector3(
                     UnityEngine.Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2),
                     0,
-                    UnityEngine.Random.Range(-spawnAreaHeight / 2, spawnAreaHeight / 2));
+                    UnityEngine.Random.Range(spawnAreaZMin, spawnAreaZMax));
 
                 if (IsPositionValid(spawnPosition, circle.transform.localScale.x / 2))
                 {
