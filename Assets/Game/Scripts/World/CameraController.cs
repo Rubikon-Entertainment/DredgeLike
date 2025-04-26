@@ -100,7 +100,7 @@ public class CameraController : MonoBehaviour
                 angle = harborAngle;
                 heightOffset = harborHeightOffset;
                 currentTarget = targetHarbor;
-                smoothSpeed = 1.5f;
+                smoothSpeed = 1f;
                 break;
                 
             case CameraMode.Stock:
@@ -108,7 +108,7 @@ public class CameraController : MonoBehaviour
                 angle = stockAngle;
                 heightOffset = stockHeightOffset;
                 currentTarget = targetPlayer;
-                smoothSpeed = 3f;
+                smoothSpeed = 1f;
                 break;
         }
     }

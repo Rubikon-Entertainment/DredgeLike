@@ -9139,18 +9139,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 924685864}
   targetHarbor: {fileID: 1618399393}
-  targetStock: {fileID: 1409838832}
   distance: 15
   angle: 10
   heightOffset: 4
-  smoothSpeed: 5
+  smoothSpeed: 2
   playerDistance: 10
   playerAngle: 10
   playerHeightOffset: 2
   harborDistance: 45
   harborAngle: 5
   harborHeightOffset: 3
-  stockDistance: 10
+  stockDistance: 20
   stockAngle: 89
   stockHeightOffset: 4
 --- !u!1 &2138872600
