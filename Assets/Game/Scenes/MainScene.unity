@@ -313,7 +313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &16835121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6147,7 +6147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578537911}
-  - component: {fileID: 1578537910}
   m_Layer: 0
   m_Name: FishData
   m_TagString: Untagged
@@ -6155,18 +6154,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1578537910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1578537909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1839dda1fe8fcab4daf49deff8fdb05a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1578537911
 Transform:
   m_ObjectHideFlags: 0
@@ -6853,7 +6840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1675863355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6882,7 +6869,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675863354}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

@@ -1,7 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Fish1", menuName = "Scriptable Objects/Fish1")]
-public class Fish1 : ScriptableObject
+[CreateAssetMenu(fileName = "Fish", menuName = "Scriptable Objects/Fish")]
+public class Fish : ScriptableObject
 {
-    
+    string fishName;
+    Sprite sprite;
+    float weight;
+    int rarity, rewardAmount;
+    AudioClip catchSound;
+
+    public int GetPrice() {
+        return((int)(weight * rewardAmount));
+    }
 }

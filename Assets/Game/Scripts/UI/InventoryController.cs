@@ -7,6 +7,8 @@ public class InventoryController : MonoBehaviour
 {
     public int FishMax, RecourcesMax, WoodNow, MetalNow, ScrapsNow, Coins;
     public TMP_Text CoinCounterText, FishCounterText, WoodCounterText, ScrapsCounterText, MetalCounterText;
+
+    public Fish[] arrayFish;
     
     void Start() {
         FishMax = 10;
@@ -14,7 +16,10 @@ public class InventoryController : MonoBehaviour
         WoodNow = 0;
         MetalNow = 0;
         ScrapsNow = 0;
-        Coins = 0;     
+        Coins = 0; 
+
+        arrayFish.push( fish = new Fish("NewFish", _, 10, 5, 35, _));   
+        Debug.Log(arrayFish[0]); 
     }
 
    public int GetWoodNow()
