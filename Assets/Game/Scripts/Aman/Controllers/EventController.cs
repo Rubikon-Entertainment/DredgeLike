@@ -3,7 +3,8 @@ using UnityEngine;
 public class EventController : MonoBehaviour
 {
     public static EventController instance { get; private set; }
-    
+    public Level currentLevel;
+
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class EventController : MonoBehaviour
     private void Start()
     {
         StartGamePlay(true);
+        ProgressController.instance.SetDeltaValue(currentLevel);
     }
 
     void StartGamePlay(bool isFishing)

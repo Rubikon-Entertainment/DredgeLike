@@ -10,8 +10,10 @@ public class TappingController : MonoBehaviour
     public float spawnAreaWidth = 5f;
     public float spawnAreaHeight = 5f;
     public float timeLimit = 5f; 
+
     private float timer; 
     private bool isTimerRunning = false;
+    private bool isGameActive = false;
 
     private List<Circle> activeCircles = new List<Circle>();
 
@@ -33,8 +35,20 @@ public class TappingController : MonoBehaviour
     }
     public void StartGame()
     {
+        isGameActive = true;
         InitializeCircles();
         GenerateNewPositions();
+    }
+
+    public void StopGame()
+    {
+        isGameActive = false;
+        isTimerRunning = false;
+        foreach (Circle circle in activeCircles)
+        {
+            circle.gameObject.SetActive(false);
+        }
+        Debug.Log("Game stopped!");
     }
 
     public void InitializeCircles()
@@ -49,7 +63,7 @@ public class TappingController : MonoBehaviour
 
     private void Update()
     {
-        if (isTimerRunning)
+        if (isTimerRunning && isGameActive)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
@@ -62,13 +76,20 @@ public class TappingController : MonoBehaviour
 
     public void Tap(Circle circle)
     {
+        if (!isGameActive) return;
         tappedTargets++;
         circle.gameObject.SetActive(false);
 
         if (IsFinished())
         {
-            ProgressController.instance.currentValue += 1;
+            ProgressController.instance.UpdateProgress();
             Debug.Log("Current Value: " + ProgressController.instance.currentValue);
+
+            if (ProgressController.instance.IsFinished())
+            {
+                StopGame();
+            }
+
             GenerateNewPositions();
         }
         else
@@ -77,8 +98,10 @@ public class TappingController : MonoBehaviour
         }
     }
 
+
     public void GenerateNewPositions()
     {
+        if (!isGameActive) return;
         tappedTargets = 0;
 
         foreach (Circle circle in activeCircles)

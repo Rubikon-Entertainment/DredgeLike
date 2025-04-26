@@ -3,16 +3,16 @@ using UnityEngine;
 public class ProgressController : MonoBehaviour
 {
     public static ProgressController instance { get; private set; }
-    public int currentValue { get; set; }
+    public int currentValue = 0;
+    public int deltaValue;
     public int targetValue = 10;
-    public float penaltyTime = 3f;
+    public float penaltyTime;
     public int penaltyValue = 1;
 
 
     private void Awake()
     {
         Singleton();
-        currentValue = 0;
     }
 
     private void Singleton()
@@ -29,7 +29,7 @@ public class ProgressController : MonoBehaviour
     {
         if (currentValue >= targetValue)
         {
-            Debug.Log("Progress finished");
+            Debug.Log("Progress finished. You won!");
             return true;
         }
         else return false;
@@ -43,5 +43,36 @@ public class ProgressController : MonoBehaviour
             currentValue = 0;
         }
         Debug.Log("Penalty! Current value is " + currentValue);
+    }
+
+    public void UpdateProgress()
+    {
+        currentValue += deltaValue;
+        if (currentValue >= targetValue)
+        {
+            currentValue = targetValue;
+        }
+    }
+
+    public void SetDeltaValue(Level level)
+    {
+        switch (level)
+        {
+            case Level.Easy:
+                deltaValue = 3;
+                penaltyTime = 3f;
+                break;
+            case Level.Medium:
+                deltaValue = 2;
+                penaltyTime = 2f;
+                break;
+            case Level.Hard:
+                deltaValue = 1;
+                penaltyTime = 1f;
+                break;
+            default:
+                Debug.LogError("Unknown level selected!");
+                break;
+        }
     }
 }
