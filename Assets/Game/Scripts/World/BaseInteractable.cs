@@ -1,14 +1,19 @@
 using UnityEngine;
+using System;
 
 public abstract class BaseInteractable : MonoBehaviour
 {
     public GameObject interactionTarget;
-    public KeyCode interactionKey = KeyCode.E;
+    // Removing KeyCode dependency
+    //public KeyCode interactionKey = KeyCode.E;
     //public float radius = 4f;
     
     protected bool isInRange = false;
     protected GameObject currentInteractor = null;
     protected bool hasInteracted = false;
+    
+    // Event that UI can subscribe to for showing/hiding the interaction button
+    public static event Action<BaseInteractable, bool> OnInteractableStatusChanged;
     
     protected virtual void Start()
     {
@@ -33,11 +38,26 @@ public abstract class BaseInteractable : MonoBehaviour
 
     protected virtual void Update()
     {
-        // Check for key press when in range
-        if (isInRange && currentInteractor != null && Input.GetKeyDown(interactionKey))
+        // Remove key press check - will be handled by UI button instead
+        // if (isInRange && currentInteractor != null && Input.GetKeyDown(interactionKey))
+        // {
+        //     HandleInteraction(currentInteractor);
+        // }
+    }
+
+    // Call this method from UI button
+    public virtual void TriggerInteraction()
+    {
+        if (isInRange && currentInteractor != null)
         {
             HandleInteraction(currentInteractor);
         }
+    }
+
+    // Public method to check if an object can interact
+    public bool CanInteract(GameObject potentialInteractor)
+    {
+        return isInRange && currentInteractor == potentialInteractor;
     }
 
     protected abstract void DisplayInfo();
@@ -82,7 +102,10 @@ public abstract class BaseInteractable : MonoBehaviour
         isInRange = true;
         currentInteractor = interactor;
         hasInteracted = false;
-        Debug.Log($"{interactor.name} is in range. Press {interactionKey} to interact with {gameObject.name}.");
+        Debug.Log($"{interactor.name} is in range. Use interaction button to interact with {gameObject.name}.");
+        
+        // Notify UI system that an interactable is available
+        OnInteractableStatusChanged?.Invoke(this, true);
     }
 
     protected virtual void ExitInteractionRange(GameObject interactor)
@@ -91,6 +114,9 @@ public abstract class BaseInteractable : MonoBehaviour
         currentInteractor = null;
         hasInteracted = false;
         Debug.Log($"{interactor.name} left interaction range of {gameObject.name}.");
+        
+        // Notify UI system that an interactable is no longer available
+        OnInteractableStatusChanged?.Invoke(this, false);
     }
 
     protected virtual void HandleInteraction(GameObject interactor)
