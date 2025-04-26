@@ -4,18 +4,17 @@ using UnityEngine;
 public class FishController : MonoBehaviour
 {
     public float speed = 5f;
-    public float moveRange = 5f;
+    public float moveRange = 1.5f;
 
-    private Vector3 startPosition;
+    public float leftBoundary = -2.5f;
+    public float rightBoundary = 2.5f;
+
+
     private bool movingRight = true;
     public bool isWaiting = false;
     public float waitTime;
     public float minWaitTime, maxWaitTime;
 
-    private void Start()
-    {
-        startPosition = transform.position;
-    }
 
     private void Update()
     {
@@ -37,7 +36,7 @@ public class FishController : MonoBehaviour
             speed += Time.deltaTime;
             transform.Translate(Vector3.right * speed * Time.deltaTime);
 
-            if (transform.position.x >= startPosition.x + moveRange)
+            if (transform.position.x >= rightBoundary)
             {
                 movingRight = false;
                 speed = Random.Range(5f, 10f);
@@ -49,7 +48,7 @@ public class FishController : MonoBehaviour
             speed -= Time.deltaTime;
             transform.Translate(Vector3.left * speed * Time.deltaTime);
 
-            if (transform.position.x <= startPosition.x - moveRange)
+            if (transform.position.x <= leftBoundary)
             {
                 movingRight = true;
                 speed = Random.Range(5f, 10f);
@@ -67,7 +66,7 @@ public class FishController : MonoBehaviour
     {
         int currentValue = ProgressController.instance.currentValue;
 
-        float zPosition = Mathf.Lerp(4f, -2f, (float)currentValue / ProgressController.instance.targetValue);
+        float zPosition = Mathf.Lerp(4f, 0f, (float)currentValue / ProgressController.instance.targetValue);
         transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
     }
 
@@ -76,8 +75,33 @@ public class FishController : MonoBehaviour
         isWaiting = true;
         waitTime = Random.Range(minWaitTime, maxWaitTime);
         yield return new WaitForSeconds(waitTime);
+
+        float checkDuration = 2f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < checkDuration)
+        {
+            yield return null;
+            elapsedTime += Time.deltaTime;
+
+            if (WrestlingController.instance != null)
+            {
+                float arrowPosition = WrestlingController.instance.currentArrows.transform.position.x;
+                float fishPosition = transform.position.x;
+
+                bool isOppositeSide = (arrowPosition < fishPosition && transform.localScale.x > 0) ||
+                                      (arrowPosition > fishPosition && transform.localScale.x < 0);
+
+                if (!isOppositeSide)
+                {
+                    break;
+                }
+            }
+        }
+
         isWaiting = false;
 
         WrestlingController.instance.SetPlayerOnSameSide(!movingRight);
     }
+
 }

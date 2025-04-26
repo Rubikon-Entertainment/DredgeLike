@@ -7,7 +7,7 @@ public class WrestlingController : MonoBehaviour
     public Arrows arrowsPrefab;
 
     private FishController currentFish;
-    private Arrows currentArrows;
+    public Arrows currentArrows;
     private float timer;
     public float successTime = 2f;
 
@@ -55,46 +55,50 @@ public class WrestlingController : MonoBehaviour
     {
         if (currentFish.isWaiting)
         {
-            int fishDirection = currentFish.GetDirection();
             float arrowPosition = currentArrows.transform.position.x;
             float fishPosition = currentFish.transform.position.x;
 
-            bool isOppositeDirection = (fishDirection == 1 && arrowPosition < fishPosition) ||
-                                       (fishDirection == -1 && arrowPosition > fishPosition);
+            bool isOppositeSide = (arrowPosition < fishPosition && currentFish.transform.localScale.x > 0) ||
+                                  (arrowPosition > fishPosition && currentFish.transform.localScale.x < 0);
 
-            if (isOppositeDirection)
+            if (isOppositeSide)
             {
                 timer += Time.deltaTime;
+
                 if (timer >= successTime)
                 {
-                    if (!playerOnSameSide)
+                    if (!ProgressController.instance.IsFinished() && currentFish.isWaiting)
                     {
-                        if (!penaltyApplied)
+                        if (playerOnSameSide)
                         {
-                            Debug.Log("Penalty");
-                            ProgressController.instance.Penalty();
-                            penaltyApplied = true;
+                            if (!penaltyApplied)
+                            {
+                                Debug.Log("Penalty");
+                                ProgressController.instance.Penalty();
+                                penaltyApplied = true;
+                            }
                         }
-                    }
-                    else
-                    {
-                        Debug.Log("Success");
-                        ProgressController.instance.UpdateProgress();
-                    }
+                        else
+                        {
+                            Debug.Log("Success");
+                            ProgressController.instance.UpdateProgress();
+                        }
 
-                    currentFish.isWaiting = false;
-                    timer = 0;
-                    penaltyApplied = false;
+                        currentFish.isWaiting = false;
+                        timer = 0;
+                        penaltyApplied = false;
+                    }
                 }
             }
             else
             {
                 timer = 0;
                 penaltyApplied = false;
-                ProgressController.instance.Penalty();
             }
         }
     }
+
+
 
     public void SetPlayerOnSameSide(bool value)
     {
@@ -104,5 +108,14 @@ public class WrestlingController : MonoBehaviour
     private void StopGame()
     {
         Debug.Log("Game Over! You've reached the target value.");
+        if (currentFish != null)
+        {
+            currentFish.gameObject.SetActive(false);
+        }
+
+        if (currentArrows != null)
+        {
+            currentArrows.gameObject.SetActive(false);
+        }
     }
 }
