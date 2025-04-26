@@ -35,6 +35,7 @@ public class WrestlingController : MonoBehaviour
 
     private void Update()
     {
+        if (!enabled) return; 
         CheckArrowDirection();
     }
 

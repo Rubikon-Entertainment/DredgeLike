@@ -13,7 +13,6 @@ public class ProgressTest : MonoBehaviour
         progressController.penaltyValue = 10;
         progressController.currentValue = 100;
 
-        progressController.StartPenaltyTimer();
     }
 
     void Update()

@@ -9,13 +9,17 @@ public class TappingController : MonoBehaviour
     public int targets = 4;
     public float spawnAreaWidth = 5f;
     public float spawnAreaHeight = 5f;
+    public float timeLimit = 5f; 
+    private float timer; 
+    private bool isTimerRunning = false;
 
     private List<Circle> activeCircles = new List<Circle>();
+
 
     private void Awake()
     {
         Singleton();
-        InitializeCircles();
+
     }
 
     private void Singleton()
@@ -27,14 +31,32 @@ public class TappingController : MonoBehaviour
         }
         instance = this;
     }
+    public void StartGame()
+    {
+        InitializeCircles();
+        GenerateNewPositions();
+    }
 
-    private void InitializeCircles()
+    public void InitializeCircles()
     {
         for (int i = 0; i < targets; i++)
         {
             Circle newCircle = Instantiate(circlePrefab);
             newCircle.gameObject.SetActive(false);
             activeCircles.Add(newCircle);
+        }
+    }
+
+    private void Update()
+    {
+        if (isTimerRunning)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                ApplyPenalty();
+                isTimerRunning = false; 
+            }
         }
     }
 
@@ -45,7 +67,13 @@ public class TappingController : MonoBehaviour
 
         if (IsFinished())
         {
+            ProgressController.instance.currentValue += 1;
+            Debug.Log("Current Value: " + ProgressController.instance.currentValue);
             GenerateNewPositions();
+        }
+        else
+        {
+            ResetTimer();
         }
     }
 
@@ -58,7 +86,6 @@ public class TappingController : MonoBehaviour
             Vector3 spawnPosition;
             bool positionFound = false;
 
-            // Пытаемся найти подходящую позицию
             for (int attempts = 0; attempts < 100; attempts++)
             {
                 spawnPosition = new Vector3(
@@ -66,11 +93,11 @@ public class TappingController : MonoBehaviour
                     0,
                     UnityEngine.Random.Range(-spawnAreaHeight / 2, spawnAreaHeight / 2));
 
-                if (IsPositionValid(spawnPosition, circle.transform.localScale.x / 2)) 
+                if (IsPositionValid(spawnPosition, circle.transform.localScale.x / 2))
                 {
                     circle.transform.position = spawnPosition;
                     positionFound = true;
-                    break; 
+                    break;
                 }
             }
 
@@ -83,6 +110,26 @@ public class TappingController : MonoBehaviour
                 Debug.LogWarning("Не удалось найти подходящую позицию для круга после 100 попыток.");
             }
         }
+
+        StartTimer();
+    }
+
+    private void StartTimer()
+    {
+        timer = timeLimit;
+        isTimerRunning = true;
+    }
+
+    private void ResetTimer()
+    {
+        timer = timeLimit; 
+    }
+
+    private void ApplyPenalty()
+    {
+        ProgressController.instance.Penalty();
+        Debug.Log("Penalty applied! Current Value: " + ProgressController.instance.currentValue);
+        GenerateNewPositions();
     }
 
     private bool IsPositionValid(Vector3 position, float radius)
@@ -91,16 +138,14 @@ public class TappingController : MonoBehaviour
         {
             if (circle.gameObject.activeSelf)
             {
-
                 if (Vector3.Distance(position, circle.transform.position) < radius * 2)
                 {
-                    return false; 
+                    return false;
                 }
             }
         }
         return true;
     }
-
 
     public bool IsFinished()
     {

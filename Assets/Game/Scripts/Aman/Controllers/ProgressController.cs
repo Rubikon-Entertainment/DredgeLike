@@ -1,19 +1,18 @@
-using System.Collections;
 using UnityEngine;
 
 public class ProgressController : MonoBehaviour
 {
     public static ProgressController instance { get; private set; }
     public int currentValue { get; set; }
-    public int targetValue { get; set; }
-    public float penaltyTime { get; set; }
-    public int penaltyValue { get; set; }
+    public int targetValue = 10;
+    public float penaltyTime = 3f;
+    public int penaltyValue = 1;
 
-    private Coroutine penaltyCoroutine;
 
     private void Awake()
     {
         Singleton();
+        currentValue = 0;
     }
 
     private void Singleton()
@@ -28,47 +27,21 @@ public class ProgressController : MonoBehaviour
 
     public bool IsFinished()
     {
-        if (currentValue == targetValue)
+        if (currentValue >= targetValue)
         {
-            StopPenaltyTimer();
-            Debug.Log("Fish is gone :(");
+            Debug.Log("Progress finished");
             return true;
         }
         else return false;
     }
 
-    void Penalty(bool isPenalty)
+    public void Penalty()
     {
-        if (isPenalty)
+        currentValue -= penaltyValue;
+        if (currentValue < 0)
         {
-            currentValue -= penaltyValue;
-            Debug.Log("Penalty! Current value is " + currentValue);
+            currentValue = 0;
         }
-    }
-
-    public void StartPenaltyTimer()
-    {
-        if (penaltyCoroutine == null)
-        {
-            penaltyCoroutine = StartCoroutine(PenaltyTimerCoroutine());
-        }
-    }
-
-    public void StopPenaltyTimer()
-    {
-        if (penaltyCoroutine != null)
-        {
-            StopCoroutine(penaltyCoroutine);
-            penaltyCoroutine = null;
-        }
-    }
-
-    private IEnumerator PenaltyTimerCoroutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(penaltyTime);
-            Penalty(true);
-        }
+        Debug.Log("Penalty! Current value is " + currentValue);
     }
 }

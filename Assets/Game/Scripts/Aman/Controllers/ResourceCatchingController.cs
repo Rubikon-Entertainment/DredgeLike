@@ -19,8 +19,6 @@ public class ResourceCatchingController : MonoBehaviour
     private void Awake()
     {
         Singleton();
-        InitializeResources();
-        InitializeHarpoon();
     }
 
     private void Singleton()
@@ -31,6 +29,13 @@ public class ResourceCatchingController : MonoBehaviour
             return;
         }
         instance = this;
+    }
+
+    public void StartGame()
+    {
+        InitializeResources();
+        InitializeHarpoon();
+        GenerateNewPositions();
     }
 
     private void InitializeResources()
