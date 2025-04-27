@@ -28,26 +28,48 @@ public class StockObject : BaseInteractable
             DisplayInfo();
             Debug.Log($"Interacted with {stock.name}");
             hasInteracted = true;
-            
 
-            if (stock is ResourceStock){
-                switch(stock.name)
-                {
-                    case "wood":
-                        InventoryController.instance.AddWood(stock.quantity);
-                        break;
-                    case "metal":
-                        InventoryController.instance.AddMetal(stock.quantity);
-                        break;
-                    case "scrap":
-                        InventoryController.instance.AddScraps(stock.quantity);
-                        break;
-                }
-               // DestroyObject();
-                return;
+            //if (stock is ResourceStock resourceStock)
+            //{
+            //    Debug.Log($"Processing interaction for {resourceStock.resourceType} with quantity {resourceStock.quantity}");
+            //    switch (resourceStock.resourceType)
+            //    {
+            //        case ResourceType.Wood:
+            //            InventoryController.instance?.AddWood(resourceStock.quantity);
+            //            break;
+            //        case ResourceType.Metal:
+            //            InventoryController.instance?.AddMetal(resourceStock.quantity);
+            //            break;
+            //        case ResourceType.Scrap:
+            //            InventoryController.instance?.AddScraps(resourceStock.quantity);
+            //            break;
+            //    }
+            //    DestroyObject();
+            //    return;
+            //}
+
+            // Handle camera and player controller logic
+            if (CameraController.Instance != null)
+            {
+                CameraController.Instance.ChangeTargetWithMode(gameObject.transform, "Stock");
             }
-            CameraController.Instance.ChangeTargetWithMode(gameObject.transform, "Stock");
-            PlayerController.Instance.SweemToStock(gameObject.transform);
+            else
+            {
+                Debug.LogWarning("CameraController instance is not initialized.");
+            }
+
+            if (PlayerController.Instance != null)
+            {
+                PlayerController.Instance.SweemToStock(gameObject.transform);
+            }
+            else
+            {
+                Debug.LogWarning("PlayerController instance is not initialized.");
+            }
+        }
+        else
+        {
+            Debug.Log("Already interacted with this stock object.");
         }
     }
 }
