@@ -5,18 +5,32 @@ using TMPro;
 
 public class InventoryController : MonoBehaviour
 {
-    public int FishMax, RecourcesMax, WoodNow, MetalNow, ScrapsNow, Coins;
+    public static InventoryController instance;
+    public int FishMax, RecourcesMax, WoodNow, MetalNow, ScrapsNow, Coins, UpgradeCount;
     public TMP_Text CoinCounterText, FishCounterText, WoodCounterText, ScrapsCounterText, MetalCounterText;
 
     public Fish[] arrayFish;
     
+
+    private void Awake()
+    {
+        if(instance == null )
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else{
+            Destroy(gameObject);
+        }
+    }
     void Start() {
-        FishMax = 10;
-        RecourcesMax = 3;
+        UpgradeCount = 0;
+        FishMax = 10 + UpgradeCount * 2;
+        RecourcesMax = 3 + UpgradeCount * 2;
         WoodNow = 0;
         MetalNow = 0;
         ScrapsNow = 0;
         Coins = 0; 
+        
 
         // arrayFish.push( fish = new Fish("NewFish", _, 10, 5, 35, _));   
         // Debug.Log(arrayFish[0]); 
@@ -54,7 +68,14 @@ public class InventoryController : MonoBehaviour
         Coins += x;
    }   
 
+   public void Upgrade()
+   {    
+        UpgradeCount++;
+   } 
+
    void Update() {
+    FishMax = 10 + UpgradeCount * 2;
+    RecourcesMax = 3 + UpgradeCount * 2;
     CoinCounterText.text = Coins.ToString();
     FishCounterText.text = 0.ToString() + " / " + FishMax.ToString();
     WoodCounterText.text = WoodNow.ToString() + " / " + RecourcesMax.ToString();
