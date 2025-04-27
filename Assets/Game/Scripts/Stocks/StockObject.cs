@@ -4,7 +4,7 @@ public class StockObject : BaseInteractable
 {
     [Header("Stock Details")]
     public Stock stock; // The stock assigned to this object
-
+    
     protected override void DisplayInfo()
     {
         if (stock != null)
@@ -17,62 +17,37 @@ public class StockObject : BaseInteractable
         }
     }
 
-    public void DestroyObject()
-    {
-        // Optionally trigger animations or events here
-        Destroy(gameObject);
-    }
-
+    //public void DestroyObject(){
+    //    Destroy(gameObject);
+    //}
+    
     protected override void HandleInteraction(GameObject interactor)
     {
         if (!hasInteracted)
         {
             DisplayInfo();
-            Debug.Log($"Interacted with {stock?.name ?? "Unknown Stock"}");
-
+            Debug.Log($"Interacted with {stock.name}");
             hasInteracted = true;
+            
 
-            if (stock is ResourceStock resourceStock)
-            {
-                Debug.Log($"Processing interaction for {resourceStock.resourceType} with quantity {resourceStock.quantity}");
-                switch (resourceStock.resourceType)
+            if (stock is ResourceStock){
+                switch(stock.name)
                 {
-                    case ResourceType.Wood:
-                        InventoryController.instance?.AddWood(resourceStock.quantity);
+                    case "wood":
+                        InventoryController.instance.AddWood(stock.quantity);
                         break;
-                    case ResourceType.Metal:
-                        InventoryController.instance?.AddMetal(resourceStock.quantity);
+                    case "metal":
+                        InventoryController.instance.AddMetal(stock.quantity);
                         break;
-                    case ResourceType.Scrap:
-                        InventoryController.instance?.AddScraps(resourceStock.quantity);
+                    case "scrap":
+                        InventoryController.instance.AddScraps(stock.quantity);
                         break;
                 }
-                DestroyObject();
+               // DestroyObject();
                 return;
             }
-
-            // Handle camera and player controller logic
-            if (CameraController.Instance != null)
-            {
-                CameraController.Instance.ChangeTargetWithMode(gameObject.transform, "Stock");
-            }
-            else
-            {
-                Debug.LogWarning("CameraController instance is not initialized.");
-            }
-
-            if (PlayerController.Instance != null)
-            {
-                PlayerController.Instance.SweemToStock(gameObject.transform);
-            }
-            else
-            {
-                Debug.LogWarning("PlayerController instance is not initialized.");
-            }
-        }
-        else
-        {
-            Debug.Log("Already interacted with this stock object.");
+            CameraController.Instance.ChangeTargetWithMode(gameObject.transform, "Stock");
+            PlayerController.Instance.SweemToStock(gameObject.transform);
         }
     }
 }

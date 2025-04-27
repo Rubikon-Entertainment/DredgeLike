@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
 
     [Header("Target Settings")]
     public Transform targetPlayer;
-    public Transform targetHarbor;
     private Transform currentTarget;
 
     [Header("Camera Settings")]
@@ -99,7 +98,6 @@ public class CameraController : MonoBehaviour
                 distance = harborDistance;
                 angle = harborAngle;
                 heightOffset = harborHeightOffset;
-                currentTarget = targetHarbor;
                 smoothSpeed = 1f;
                 break;
                 

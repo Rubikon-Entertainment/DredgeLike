@@ -18,11 +18,11 @@ public class HarborObject : BaseInteractable
         if (!hasInteracted)
         {
             DisplayInfo();
-            Debug.Log($"Interacted with {gameObject.name}");
+            Debug.Log($"Interacted with {harborName}");
             hasInteracted = true;
             CameraController.Instance.ChangeTargetWithMode(harborTarget, "Harbor");
             PlayerController.Instance.SweemToHarbor(harborTarget);
-            UIHarbor.Instance.StartHarborInteraction(gameObject.name);
+            UIHarbor.Instance.StartHarborInteraction(harborName);
         }
     }
 }
