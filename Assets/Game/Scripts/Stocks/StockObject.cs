@@ -66,6 +66,8 @@ public class StockObject : BaseInteractable
             {
                 Debug.LogWarning("PlayerController instance is not initialized.");
             }
+
+            EventController.instance.StartGamePlay();
         }
         else
         {

@@ -22,15 +22,11 @@ public class EventController : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        StartGamePlay();
-    }
 
-    void StartGamePlay()
+    public void StartGamePlay()
     {
         //TODO Передать параметры рыбы
-           controller.StartGame(Level.Medium);
+         controller.StartGame(Level.Medium);
     }
 }
 

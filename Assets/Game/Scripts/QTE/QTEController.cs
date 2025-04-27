@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,8 @@ public class QTEController : MonoBehaviour {
 
     [SerializeField] private Slider slider;
     [SerializeField] private RectTransform[] successLines;
+    [SerializeField] private GameObject UIHandler;
+    public GameObject gameMenu;
 
     private float sliderNum = 0f;
     private float[] randomNums = { 0, 0, 0 };
@@ -28,6 +31,10 @@ public class QTEController : MonoBehaviour {
 
     public void StartGame(Level diff)
     {
+        UIHandler.SetActive(true);
+        fish.gameObject.SetActive(true);
+        gameMenu.SetActive(false);
+        fish.transform.position = new Vector3(PlayerController.Instance.transform.position.x, PlayerController.Instance.transform.position.y, PlayerController.Instance.transform.position.z + 5);
         randomizeNumbers();
         sliderNum = 0f;
         slider.value = 0f;
@@ -39,10 +46,15 @@ public class QTEController : MonoBehaviour {
 
     private void EndGame()
     {
+        UIHandler.SetActive(false);
+        fish.gameObject.SetActive(false);
         isPlaying = false;
+        CameraController.Instance.ChangeTargetWithMode(PlayerController.Instance.transform, "Player");
+        gameMenu.SetActive(true);
         if (isSuccess)
         {
             //TODO: Передать рыбу через InventoryController
+            InventoryController.instance.arrayFish.Add(new Fish());
             Debug.Log($"Victory");
         }
     }

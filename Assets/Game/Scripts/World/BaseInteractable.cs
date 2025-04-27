@@ -45,7 +45,6 @@ public abstract class BaseInteractable : MonoBehaviour
         // }
     }
 
-    // Call this method from UI button
     public virtual void TriggerInteraction()
     {
         if (isInRange && currentInteractor != null)
@@ -53,8 +52,6 @@ public abstract class BaseInteractable : MonoBehaviour
             HandleInteraction(currentInteractor);
         }
     }
-
-    // Public method to check if an object can interact
     public bool CanInteract(GameObject potentialInteractor)
     {
         return isInRange && currentInteractor == potentialInteractor;
@@ -64,7 +61,6 @@ public abstract class BaseInteractable : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        // If no specific target is set, interact with any object that has a Rigidbody
         if (interactionTarget == null)
         {
             if (other.attachedRigidbody != null)
@@ -72,7 +68,6 @@ public abstract class BaseInteractable : MonoBehaviour
                 EnterInteractionRange(other.gameObject);
             }
         }
-        // Otherwise only interact with the specific target
         else if (other.gameObject == interactionTarget || 
                  (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == interactionTarget))
         {
@@ -82,7 +77,6 @@ public abstract class BaseInteractable : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        // Reset interaction state when object leaves
         if (interactionTarget == null)
         {
             if (other.attachedRigidbody != null)
@@ -104,7 +98,6 @@ public abstract class BaseInteractable : MonoBehaviour
         hasInteracted = false;
         Debug.Log($"{interactor.name} is in range. Use interaction button to interact with {gameObject.name}.");
         
-        // Notify UI system that an interactable is available
         OnInteractableStatusChanged?.Invoke(this, true);
     }
 
@@ -115,7 +108,6 @@ public abstract class BaseInteractable : MonoBehaviour
         hasInteracted = false;
         Debug.Log($"{interactor.name} left interaction range of {gameObject.name}.");
         
-        // Notify UI system that an interactable is no longer available
         OnInteractableStatusChanged?.Invoke(this, false);
     }
 

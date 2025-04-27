@@ -9,7 +9,7 @@ public class InventoryController : MonoBehaviour
     public int FishMax, RecourcesMax, WoodNow, MetalNow, ScrapsNow, Coins, UpgradeCount;
     public TMP_Text CoinCounterText, FishCounterText, WoodCounterText, ScrapsCounterText, MetalCounterText;
 
-    public Fish[] arrayFish;
+    public List<Fish> arrayFish;
     
 
     private void Awake()
